@@ -55,6 +55,10 @@ Bot Params
 lang='es' -> Will change the language of the bot, to add a new language just
 edit lang.json files.
 
+admins=[12412421, 4124124] -> Will change the administrators of the bot (to
+add matches and delete matches). It must be a list with the id's of the admins
+separated by commas.
+
 Instalation
 -----------
 
