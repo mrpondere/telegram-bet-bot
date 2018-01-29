@@ -41,6 +41,8 @@
             "New match added - %(1)s %(vs)s %(2)s": "Nuevo partido añadido - %(1)s %(vs)s %(2)s",
             "You will no longer be notified.": "Ya no serás notificado.",
             "You will be notified when a match is added.": "Se te notificará cada vez que se añada un partido.",
-            "Notify when a match is added.": "Notifica cuando un partido es añadido"
+            "Notify when a match is added.": "Notifica cuando un partido es añadido",
+            "The format of the date/hour is incorrect.": "El formato de la fecha/hora es incorrecto.",
+            "An error ocurred adding the match.": "Ha ocurrido un error al añadir el partido."
         }
 }

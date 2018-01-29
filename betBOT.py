@@ -242,12 +242,24 @@ def msg_add_match_hour(message):
 
 
 def add_match_db(message):
+    userStep[message.from_user.id] = None
     teams = to_add[message.from_user.id]
     date = teams['date'] + ' ' + teams['hour']
-    date_time = datetime.datetime.strptime(date, '%d-%m-%Y %H:%M')
+    try:
+        date_time = datetime.datetime.strptime(date, '%d-%m-%Y %H:%M')
+    except ValueError:
+        bot.send_message(message.chat.id, _('The format of the date/hour is '
+                + 'incorrect.'))
+        return
+
     new_match = Match(team1=teams['Team1'], team2=teams['Team2'],
         start_date=date_time)
-    add(new_match)
+    try:
+        add(new_match)
+    except Exception:
+        bot.send_message(message.chat.id, _('An error ocurred adding the'
+                + 'match.'))
+        return
     bot.send_message(message.chat.id, _('Added correctly.'))
     # Notify
     query = get_users()
@@ -264,7 +276,6 @@ def add_match_db(message):
             user = query.filter(User.player_id == message.from_user.id).first()
             user.notify = 0
             update()
-    userStep[message.from_user.id] = None
 
 
 @bot.message_handler(commands=['setscore'])
