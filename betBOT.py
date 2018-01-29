@@ -4,6 +4,7 @@ import os
 import unicodedata
 
 import sys
+import ast
 import datetime
 
 from telebot import TeleBot, types
@@ -25,7 +26,8 @@ if sys.argv[1] and 'lang=' in sys.argv[1]:
     change_lang(lang)
 
 if sys.argv[2] and 'admins=' in sys.argv[2]:
-    administrators = sys.argv[2].split('=')[1]
+    administrators = ast.literal_eval(sys.argv[2][7:])
+
 
 bot = TeleBot(token)
 userStep = {}
@@ -247,12 +249,21 @@ def add_match_db(message):
         start_date=date_time)
     add(new_match)
     bot.send_message(message.chat.id, _('Added correctly.'))
-    # Notify to group
+    # Notify
     query = get_users()
     notify = query.filter(User.notify == 1).all()
+    notify = [1346477]
     for u in notify:
-        bot.send_message(u.player_id, _('New match added - %(1)s %(vs)s %(2)s')
-            % {'1': teams['Team1'], 'vs': emoji(':vs:'), '2': teams['Team2']})
+        try:
+            bot.send_message(u.player_id,
+                _('New match added - %(1)s %(vs)s %(2)s')
+                % {'1': teams['Team1'], 'vs': emoji(':vs:'),
+                    '2': teams['Team2']})
+        except Exception:
+            # Set notify to 0 if error (because user stopped bot /stop)
+            user = query.filter(User.player_id == message.from_user.id).first()
+            user.notify = 0
+            update()
     userStep[message.from_user.id] = None
 
 
