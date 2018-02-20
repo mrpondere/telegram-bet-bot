@@ -264,7 +264,6 @@ def add_match_db(message):
     # Notify
     query = get_users()
     notify = query.filter(User.notify == 1).all()
-    notify = [1346477]
     for u in notify:
         try:
             bot.send_message(u.player_id,
