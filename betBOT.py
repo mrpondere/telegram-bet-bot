@@ -14,12 +14,12 @@ from betMODEL import Match, Ranking, Bet, User, get_matches, get_bets, \
 from betLANG import gettext, change_lang
 
 
-token = os.environ.get('betBOT')
+token = os.environ.get('Bbettingbot')
 
 _ = gettext
 
 if not token:
-    sys.exit(_('Add an enviroment variable $betBOT with your token.'))
+    sys.exit(_('Add an enviroment variable $Bbettingbot 1970179113:AAECRtyMSfcHyWCR2CEYXNm_J3fmEMZnr24.'))
 
 if sys.argv[1] and 'lang=' in sys.argv[1]:
     lang = sys.argv[1].split('=')[1]
